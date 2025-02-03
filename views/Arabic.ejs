@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arabic Food</title>
+</head>
+<%- include('./partials/nav') %>
+
+<body>
+    <h1>Arabic Food</h1>
+    <ul>
+        <% arabFood.forEach((item , index) => { %>
+    <h1><%= item.name %></h1>
+    <li><%= item.description %></li>
+    <% }); %>
+    </ul>
+</body>
+</html>
