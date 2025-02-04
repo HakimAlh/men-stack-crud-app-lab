@@ -40,6 +40,7 @@ const filipinoFood = [
     }
 
 ]
+
 //Creates a connection to MONGO database
 mongoose.connect(process.env.MONGODB_URI)
 mongoose.connection.on('connected', () => {
@@ -47,11 +48,14 @@ mongoose.connection.on('connected', () => {
 })
 
 // MIDDLEWARE
+const Food = require('./models/food.js')
 
 
-// PUBLIC ROUTES
+app.use(methodOverride("_method")); 
+app.use(morgan("dev"));
+
 app.get('/', async (req, res) => {
-    res.render('index.ejs');
+    res.render('home.ejs');
   });
 
   app.get('/Arabic' , (req, res) => {
@@ -64,9 +68,62 @@ app.get('/', async (req, res) => {
         filipinoFood: filipinoFood
     })
   })
+app.get('/FoodAdder' , (req, res) => {
+    res.render('FoodAdder.ejs')
+})
+// app.get('/', (req, res) => {
+//     res.render('index.ejs')
+// })
 
-
+// app.get('/foods', async (req, res) => {
+//     const foods = Food.find({});
   
+//     res.render('foods/index.ejs', { foods: foods });
+//   });
+
+
+// const foodCtrl = require('./controllers/foods.js')
+// app.get('/foods' , foodCtrl.index)
+
+app.get('/foods/new', (req, res) => {
+  res.render('foods/new.ejs')
+})
+app.use(express.urlencoded({ extended: false }));
+
+
+app.get("/foods", async (req, res) => {
+  const allFoods = await Food.find();
+  res.render("foods/index.ejs", {
+    foods: allFoods
+  })
+});
+
+app.get("/foods/:foodId", async (req, res) => {
+  const foundFood = await Food.findById(req.params.foodId);
+  res.render('foods/show.ejs', { food: foundFood});
+});
+
+app.post("/foods", async (req, res) => {
+  if (req.body.isReadyToEat === "on") {
+    req.body.isReadyToEat = true;
+  } else {
+    req.body.isReadyToEat = false;
+  }
+  await Food.create(req.body);
+  res.redirect("/foods");
+});
+  
+app.delete("/foods/:foodId", async (req, res) => {
+  await Food.findByIdAndDelete(req.params.foodId)
+  res.redirect("/foods");
+});
+  
+app.get("/foods/:foodId/edit", async (req, res) => {
+  const foundFood = await Food.findById(req.params.foodId);
+  res.render("foods/edit.ejs", {
+    food: foundFood
+  })
+});
 //CONTROLLERS
 
 

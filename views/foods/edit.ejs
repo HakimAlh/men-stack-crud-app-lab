@@ -1,0 +1,11 @@
+<body>
+    <h1>Edit <%= food.name %></h1>
+    <form action="/foods" method="POST">
+      <label for="name">Name:</label>
+      <input type="text" name="name" id="name" />
+  
+      <label for="isReadyToEat">Edible this time?</label>
+      <input type="checkbox" name="isReadyToEat" id="isReadyToEat" />
+      <button type="submit">Update LeFood!</button>
+    </form>
+  </body>

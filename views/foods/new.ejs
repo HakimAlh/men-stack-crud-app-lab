@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeFood</title>
+    <a href="/">Home</a>
+    <a href="/foods">Browse LeFoodz</a>
+  </head>
+
+  <body>
+    <h1>Add a food of your choice!</h1>
+    <form action="/foods/<%=food._id%>?_method=PUT" method="POST">
+      <label for="name">Le Amazing Food Name:</label>
+      <input type="text" name="name" id="name" />
+
+      <label for="isReadyToEat">Hopefully Edible?</label>
+      <input type="checkbox" name="isReadyToEat" id="isReadyToEat" />
+
+      <button type="submit">Add your deliciouso Food!</button>
+    </form>
+  </body>
+</html>

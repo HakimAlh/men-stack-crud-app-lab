@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your LeFood is the special!</title>
+</head>
+<a href="/">Home</a>
+<body>
+
+
+<body>
+    <h1>Your LeFoodz</h1>
+    <h5>Can I taste it too? :D</h5>
+    <ul>
+      <% foods.forEach(food => { %>
+        <li><a href="/foods/<%= food._id %>"><%= food.name %></a></li>
+      <% }); %>
+    </ul>
+  </body>
+  
+    
+</body>
+</html>
